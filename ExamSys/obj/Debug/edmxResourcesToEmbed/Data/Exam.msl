@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ExamSysModelStoreContainer" CdmEntityContainer="ExamSysEntities">
+    <EntitySetMapping Name="EmployeeType">
+      <EntityTypeMapping TypeName="IsTypeOf(ExamSysModel.EmployeeType)">
+        <MappingFragment StoreEntitySet="EmployeeType">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="EType" ColumnName="EType" />
+          <ScalarProperty Name="ETypeName" ColumnName="ETypeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="IsTypeOf(ExamSysModel.Questions)">
+        <MappingFragment StoreEntitySet="Questions">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="EmployeeTypeID" ColumnName="EmployeeTypeID" />
+          <ScalarProperty Name="SubjectTypeID" ColumnName="SubjectTypeID" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubjectType">
+      <EntityTypeMapping TypeName="IsTypeOf(ExamSysModel.SubjectType)">
+        <MappingFragment StoreEntitySet="SubjectType">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SType" ColumnName="SType" />
+          <ScalarProperty Name="STypeName" ColumnName="STypeName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
