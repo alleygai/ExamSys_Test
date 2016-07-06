@@ -37,13 +37,15 @@
                 <button type="button" class="btn btn-sm" onclick="GetQuestions();">搜索</button>
             </div>
             <div class="row">
-                <div id="QuestionsGrid">
-
-                </div>
+                <div id="QuestionsGrid"></div>
             </div>
         </div>
         <div id="Exam">
-            CCC
+            <div class="row">
+                @Html.DropDownList("employeeType", (IList<SelectListItem>)ViewBag.EmployeeType)
+                @Html.DropDownList("subjectType", (IList<SelectListItem>)ViewBag.SubjectType)
+                <button type="button" class="btn btn-sm" onclick="GeneratePaper();">生成</button>
+            </div>
         </div>
     </div>
 </div>
@@ -53,7 +55,47 @@
     });
 
     function GetQuestions() {
+        var source = {
+            datatype: "json",
+            datafields: [{ name: 'ID', },
+			 		     { name: 'Title' },
+					     { name: 'Content' },
+					     { name: 'Answer' }],
+            url: 'Questions/GetQuestions',
+            root: 'Rows',
+            beforeprocessing: function (data) {
+                source.totalrecords = data.TotalRows;
+            }
+        };
+        var dataadapter = new $.jqx.dataAdapter(source, {
+            loadError: function (xhr, status, error) {
+                alert(error);
+            }
+        });
 
+        $("#QuestionsGrid").jqxGrid(
+                {
+                    source: dataadapter,
+                    pageable: true,
+                    columns: [
+                      { text: '编号', datafield: 'ID', width: 100 },
+                      { text: '题目', datafield: 'Title', width: 100 },
+                      { text: '试题内容', datafield: 'Content', width: 100 },
+                      { text: '答案', datafield: 'Answer', width: 180 }
+                    ]
+                });
+        $("#QuestionsGrid").jqxGrid('hidecolumn', 'ID');
+    }
+
+    function GeneratePaper() {
+        if ($("#subjectType").val() == "0") {
+            alert("请选择题目类型");
+            return;
+        }
+        if ($("#employeeType").val() == "0") {
+            alert("请选择工种类型");
+            return;
+        }
     }
 
     function SubmitSubject() {

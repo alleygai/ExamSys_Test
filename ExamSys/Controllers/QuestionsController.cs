@@ -35,5 +35,29 @@ namespace ExamSys.Controllers
                 entity.SaveChanges();
             }
         }
+
+        public JsonResult GetQuestions(int pagesize, int pagenum, int subjecttypeid, int employeetypeid)
+        {
+            ExamSysEntities entity = new ExamSysEntities();
+            var totalResult = from item in entity.Questions
+                              where item.SubjectTypeID == subjecttypeid &&
+                                    item.EmployeeTypeID == employeetypeid
+                              select new Questions
+                              {
+                                  ID = item.ID,
+                                  Answer = item.Answer,
+                                  Content = item.Content,
+                                  Title = item.Title
+                              };
+            var totalCount = totalResult.Count();
+            var questions = totalResult.Skip(pagesize * pagenum).Take(pagesize);
+            var result = new
+            {
+                TotalRows = questions,
+                Rows = questions
+            };
+            entity.Dispose();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }
