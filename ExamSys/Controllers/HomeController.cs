@@ -6,23 +6,27 @@ using System.Web.Mvc;
 
 namespace ExamSys.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
-            return View();
-        }
+            List<SelectListItem> employeeTypeItems = new List<SelectListItem>();
+            employeeTypeItems.Add(new SelectListItem { Text = "请选择工种", Value = "0", Selected = true });
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+            foreach (var item in base.DicHelper.EmployeeType)
+            {
+                employeeTypeItems.Add(new SelectListItem { Text = item.Name, Value = item.ID.ToString() });
+            }
+            ViewBag.EmployeeType = employeeTypeItems;
 
-            return View();
-        }
+            List<SelectListItem> subjectTypeItems = new List<SelectListItem>();
+            subjectTypeItems.Add(new SelectListItem { Text = "请选择题型", Value = "0", Selected = true });
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+            foreach (var item in base.DicHelper.SubjectType)
+            {
+                subjectTypeItems.Add(new SelectListItem { Text = item.Name, Value = item.ID.ToString() });
+            }
+            ViewBag.SubjectType = subjectTypeItems;
 
             return View();
         }

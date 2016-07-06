@@ -1,31 +1,93 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿<div class="row">
+    <div id="myAlert" class="alert alert-info" style="display:none;">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>添加试题成功！</strong>
+    </div>
+    <div class="col-sm-12" id="tabs">
+        <ul class="tabs">
+            <li class="tab col s12 m4"><a href="#AddQ">添加试题</a></li>
+            <li class="tab col s12 m4"><a href="#EditQ">编辑试题</a></li>
+            <li class="tab col s12 m4"><a href="#Exam">生成试题</a></li>
+        </ul>
+        <div id="AddQ">
+            <div class="row">
+                @Html.DropDownList("employeeType", (IList<SelectListItem>)ViewBag.EmployeeType)
+                @Html.DropDownList("subjectType", (IList<SelectListItem>)ViewBag.SubjectType)
+            </div>
+            <div class="row">
+                <label for="title">题目</label>
+                <input type="text" class="form-control" id="title" placeholder="题目">
+            </div>
+            <div class="row">
+                <label for="content">内容</label>
+                <textarea class="form-control" rows="8" id="content" placeholder="题目内容"></textarea>
+            </div>
+            <div class="row">
+                <label for="answer">答案</label>
+                <textarea class="form-control" rows="6" id="answer" placeholder="答案"></textarea>
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-default" onclick="SubmitSubject();">提交</button>
+            </div>
+        </div>
+        <div id="EditQ">
+            <div class="row">
+                @Html.DropDownList("employeeType", (IList<SelectListItem>)ViewBag.EmployeeType)
+                @Html.DropDownList("subjectType", (IList<SelectListItem>)ViewBag.SubjectType)
+                <button type="button" class="btn btn-sm" onclick="GetQuestions();">搜索</button>
+            </div>
+            <div class="row">
+                <div id="QuestionsGrid">
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+                </div>
+            </div>
+        </div>
+        <div id="Exam">
+            CCC
+        </div>
+    </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#tabs').tabs();
+    });
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+    function GetQuestions() {
+
+    }
+
+    function SubmitSubject() {
+        if ($("#subjectType").val() == "0") {
+            alert("请选择题目类型");
+            return;
+        }
+        if ($("#employeeType").val() == "0") {
+            alert("请选择工种类型");
+            return;
+        }
+        var postData = {
+            title: $("#title").val(),
+            content: $("#content").val(),
+            answer: $("#answer").val(),
+            subjectType: $("#subjectType").val(),
+            employeeType: $("#employeeType").val()
+        };
+
+        $.ajax({
+            url: '/Questions/AddQ',
+            type: 'POST',
+            data: postData,
+            async: false,
+            error: function (xhr) {
+                alert('Error: ' + xhr.statusText);
+            },
+            success: function (result) {
+                $("#myAlert").fadeIn(1500);
+                $("#title").val('');
+                $("#content").val('');
+                $("#answer").val('');
+                $("#myAlert").fadeOut(1500);
+            }
+        });
+    }
+</script>

@@ -44,12 +44,12 @@ namespace ExamSys
                 {
                     using (ExamSysEntities entity = new ExamSysEntities())
                     {
-                        mSubjectType = (from m in entity.EmployeeType
+                        mSubjectType = (from m in entity.SubjectType
                                         select new SubjectTypeModel
                                         {
                                             ID = m.ID,
-                                            Type = m.EType,
-                                            Name = m.ETypeName
+                                            Type = m.SType,
+                                            Name = m.STypeName
                                         }).ToList();
                     }
                     if (mSubjectType == null)
