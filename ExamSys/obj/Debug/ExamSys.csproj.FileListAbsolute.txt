@@ -104,6 +104,5 @@ C:\Work\Code\ExamSys\ExamSys_Test\ExamSys\bin\System.Web.WebPages.Deployment.xml
 C:\Work\Code\ExamSys\ExamSys_Test\ExamSys\bin\System.Web.WebPages.Razor.xml
 C:\Work\Code\ExamSys\ExamSys_Test\ExamSys\bin\Antlr3.Runtime.pdb
 C:\Work\Code\ExamSys\ExamSys_Test\ExamSys\bin\Newtonsoft.Json.xml
-C:\Work\Code\ExamSys\ExamSys_Test\ExamSys\obj\Debug\ExamSys.csprojResolveAssemblyReference.cache
 C:\Work\Code\ExamSys\ExamSys_Test\ExamSys\obj\Debug\ExamSys.dll
 C:\Work\Code\ExamSys\ExamSys_Test\ExamSys\obj\Debug\ExamSys.pdb

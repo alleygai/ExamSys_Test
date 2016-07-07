@@ -3,6 +3,9 @@
         <a href="#" class="close" data-dismiss="alert">&times;</a>
         <strong>添加试题成功！</strong>
     </div>
+
+    <div class="loader"></div>
+
     <div class="col-sm-12" id="tabs">
         <ul class="tabs">
             <li class="tab col s12 m4"><a href="#AddQ">添加试题</a></li>
@@ -99,6 +102,7 @@
     }
 
     function SubmitSubject() {
+        document.getElementById("GlobalPreLoader").style.display = "block";
         if ($("#subjectType").val() == "0") {
             alert("请选择题目类型");
             return;
