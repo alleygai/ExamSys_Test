@@ -6,19 +6,32 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />*@
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>*@
 
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-ui.min.js"></script>
-
     <link href="~/Content/PreLoader.css" rel="stylesheet" />
+
+    @*<script src="~/Content/jqwidgets/jqxcore.js"></script>
+    <script src="~/Content/jqwidgets/jqxgrid.js"></script>
+    <script src="~/Content/jqwidgets/jqxgrid.pager.js"></script>
+    <script src="~/Content/jqwidgets/jqxgrid.filter.js"></script>
+    <script src="~/Content/jqwidgets/jqxgrid.selection.js"></script>
+    <script src="~/Content/jqwidgets/jqxgrid.sort.js"></script>
+    <script src="~/Content/jqwidgets/jqxgrid.columnsresize.js"></script>
+    <script src="~/Content/jqwidgets/jqxgrid.columnsreorder.js"></script>*@
+    <link href="~/Content/jqwidgets/styles/jqx.base.css" rel="stylesheet" />
+    <link href="~/Content/jqwidgets/styles/jqx.bootstrap.css" rel="stylesheet" />
+    <script src="~/Content/jqwidgets/jqx-all.js"></script>
 </head>
 <body>
-    <div id="GlobalPreLoader" style="display:none;"></div>
+    @*<div id="GlobalPreLoader" style="display:none;"></div>*@
     <div style="padding-left:20px;padding-right:20px;">
         @RenderBody()
     </div>

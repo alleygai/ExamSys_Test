@@ -3,9 +3,6 @@
         <a href="#" class="close" data-dismiss="alert">&times;</a>
         <strong>添加试题成功！</strong>
     </div>
-
-    <div class="loader"></div>
-
     <div class="col-sm-12" id="tabs">
         <ul class="tabs">
             <li class="tab col s12 m4"><a href="#AddQ">添加试题</a></li>
@@ -14,8 +11,8 @@
         </ul>
         <div id="AddQ">
             <div class="row">
-                @Html.DropDownList("employeeType", (IList<SelectListItem>)ViewBag.EmployeeType)
-                @Html.DropDownList("subjectType", (IList<SelectListItem>)ViewBag.SubjectType)
+                @Html.DropDownList("employeeTypeT1", (IList<SelectListItem>)ViewBag.EmployeeType)
+                @Html.DropDownList("subjectTypeT1", (IList<SelectListItem>)ViewBag.SubjectType)
             </div>
             <div class="row">
                 <label for="title">题目</label>
@@ -35,8 +32,8 @@
         </div>
         <div id="EditQ">
             <div class="row">
-                @Html.DropDownList("employeeType", (IList<SelectListItem>)ViewBag.EmployeeType)
-                @Html.DropDownList("subjectType", (IList<SelectListItem>)ViewBag.SubjectType)
+                @Html.DropDownList("employeeTypeT2", (IList<SelectListItem>)ViewBag.EmployeeType)
+                @Html.DropDownList("subjectTypeT2", (IList<SelectListItem>)ViewBag.SubjectType)
                 <button type="button" class="btn btn-sm" onclick="GetQuestions();">搜索</button>
             </div>
             <div class="row">
@@ -47,7 +44,7 @@
             <div class="row">
                 @Html.DropDownList("employeeType", (IList<SelectListItem>)ViewBag.EmployeeType)
                 @Html.DropDownList("subjectType", (IList<SelectListItem>)ViewBag.SubjectType)
-                <button type="button" class="btn btn-sm" onclick="GeneratePaper();">生成</button>
+                <button type="button" class="btn btn-sm" onclick="GeneratePaper();">生成试题</button>
             </div>
         </div>
     </div>
@@ -61,30 +58,39 @@
         var source = {
             datatype: "json",
             datafields: [{ name: 'ID', },
-			 		     { name: 'Title' },
-					     { name: 'Content' },
-					     { name: 'Answer' }],
+                        { name: 'Title' },
+                        { name: 'Content' },
+                        { name: 'Answer' }],
             url: 'Questions/GetQuestions',
-            root: 'Rows',
+            id: 'ID',
+            data: {
+                subjecttypeid: $("#subjectTypeT2").val(),
+                employeetypeid: $("#employeeTypeT2").val()
+            },
             beforeprocessing: function (data) {
                 source.totalrecords = data.TotalRows;
             }
         };
-        var dataadapter = new $.jqx.dataAdapter(source, {
+        var dataAdapter = new $.jqx.dataAdapter((source), {
             loadError: function (xhr, status, error) {
+                debugger;
                 alert(error);
             }
         });
 
         $("#QuestionsGrid").jqxGrid(
                 {
-                    source: dataadapter,
+                    width: '100%',
+                    source: dataAdapter,
                     pageable: true,
+                    pageSize: 15,
+                    sortable: false,
+                    filterable: false,
                     columns: [
-                      { text: '编号', datafield: 'ID', width: 100 },
-                      { text: '题目', datafield: 'Title', width: 100 },
-                      { text: '试题内容', datafield: 'Content', width: 100 },
-                      { text: '答案', datafield: 'Answer', width: 180 }
+                      { text: '编号', datafield: 'ID' },
+                      { text: '题目', datafield: 'Title' },
+                      { text: '试题内容', datafield: 'Content' },
+                      { text: '答案', datafield: 'Answer' }
                     ]
                 });
         $("#QuestionsGrid").jqxGrid('hidecolumn', 'ID');
@@ -102,12 +108,12 @@
     }
 
     function SubmitSubject() {
-        document.getElementById("GlobalPreLoader").style.display = "block";
-        if ($("#subjectType").val() == "0") {
+        //document.getElementById("GlobalPreLoader").style.display = "block";
+        if ($("#subjectTypeT1").val() == "0") {
             alert("请选择题目类型");
             return;
         }
-        if ($("#employeeType").val() == "0") {
+        if ($("#employeeTypeT1").val() == "0") {
             alert("请选择工种类型");
             return;
         }
@@ -115,8 +121,8 @@
             title: $("#title").val(),
             content: $("#content").val(),
             answer: $("#answer").val(),
-            subjectType: $("#subjectType").val(),
-            employeeType: $("#employeeType").val()
+            subjectType: $("#subjectTypeT1").val(),
+            employeeType: $("#employeeTypeT1").val()
         };
 
         $.ajax({

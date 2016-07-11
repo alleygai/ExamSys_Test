@@ -29,8 +29,10 @@ namespace ExamSys.Controllers
             q.CreateTime = DateTime.Now;
             q.LastUpdateTime = DateTime.Now;
 
+
             using (ExamSysEntities entity = new ExamSysEntities())
             {
+
                 entity.Questions.Add(q);
                 entity.SaveChanges();
             }
@@ -42,7 +44,7 @@ namespace ExamSys.Controllers
             var totalResult = from item in entity.Questions
                               where item.SubjectTypeID == subjecttypeid &&
                                     item.EmployeeTypeID == employeetypeid
-                              select new Questions
+                              select new
                               {
                                   ID = item.ID,
                                   Answer = item.Answer,
@@ -50,13 +52,12 @@ namespace ExamSys.Controllers
                                   Title = item.Title
                               };
             var totalCount = totalResult.Count();
-            var questions = totalResult.Skip(pagesize * pagenum).Take(pagesize);
+            var questions = totalResult.OrderBy(re => re.ID).Skip(pagesize * pagenum).Take(pagesize);
             var result = new
             {
                 TotalRows = questions,
                 Rows = questions
             };
-            entity.Dispose();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
