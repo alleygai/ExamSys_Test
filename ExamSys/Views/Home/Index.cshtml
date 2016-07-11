@@ -13,6 +13,7 @@
             <div class="row">
                 @Html.DropDownList("employeeTypeT1", (IList<SelectListItem>)ViewBag.EmployeeType)
                 @Html.DropDownList("subjectTypeT1", (IList<SelectListItem>)ViewBag.SubjectType)
+                @Html.DropDownList("scoreTypeT1", (IList<SelectListItem>)ViewBag.ScoreType)
             </div>
             <div class="row">
                 <label for="title">题目</label>
@@ -42,15 +43,9 @@
         </div>
         <div id="Exam">
             <div class="row">
-<<<<<<< HEAD
-                @Html.DropDownList("employeeType", (IList<SelectListItem>)ViewBag.EmployeeType)
-                @Html.DropDownList("subjectType", (IList<SelectListItem>)ViewBag.SubjectType)
-                <button type="button" class="btn btn-sm" onclick="GeneratePaper();">生成试题</button>
-=======
                 @Html.DropDownList("employeeTypeT3", (IList<SelectListItem>)ViewBag.EmployeeType)
                 @Html.DropDownList("subjectTypeT3", (IList<SelectListItem>)ViewBag.SubjectType)
                 <button type="button" class="btn btn-sm" onclick="GeneratePaper();">生成</button>
->>>>>>> origin/master
             </div>
         </div>
     </div>
@@ -74,12 +69,12 @@
                 employeetypeid: $("#employeeTypeT2").val()
             },
             beforeprocessing: function (data) {
+                debugger;
                 source.totalrecords = data.TotalRows;
             }
         };
         var dataAdapter = new $.jqx.dataAdapter((source), {
             loadError: function (xhr, status, error) {
-                debugger;
                 alert(error);
             }
         });
@@ -99,7 +94,19 @@
                       { text: '答案', datafield: 'Answer' }
                     ]
                 });
-        $("#QuestionsGrid").jqxGrid('hidecolumn', 'ID');
+
+
+        var localizationobj = {};
+        localizationobj.pagergotopagestring = "前往:";
+        localizationobj.pagershowrowsstring = "每页:";
+        localizationobj.pagerrangestring = "共";
+        localizationobj.pagernextbuttonstring = "前一页";
+        localizationobj.pagerpreviousbuttonstring = "后一页";
+
+        $("#QuestionsGrid").on('bindingcomplete', function (event) {
+            $("#QuestionsGrid").jqxGrid('hidecolumn', 'ID');
+            $("#QuestionsGrid").jqxGrid('localizestrings', localizationobj);
+        });
     }
 
     function GeneratePaper() {
@@ -123,13 +130,18 @@
         if ($("#employeeTypeT1").val() == "0") {
             alert("请选择工种类型");
             return;
-        }
+        } 
+        if ($("#scoreTypeT1").val() == "0") {
+            alert("请选择题目分数");
+            return;
+        } scoreTypeT1
         var postData = {
             title: $("#title").val(),
             content: $("#content").val(),
             answer: $("#answer").val(),
             subjectType: $("#subjectTypeT1").val(),
-            employeeType: $("#employeeTypeT1").val()
+            employeeType: $("#employeeTypeT1").val(),
+            scoreType: $("#scoreTypeT1").val()
         };
 
         $.ajax({

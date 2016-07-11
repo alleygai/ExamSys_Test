@@ -28,6 +28,15 @@ namespace ExamSys.Controllers
             }
             ViewBag.SubjectType = subjectTypeItems;
 
+            List<SelectListItem> scoreTypeItems = new List<SelectListItem>();
+            scoreTypeItems.Add(new SelectListItem { Text = "请选择分数", Value = "0", Selected = true });
+            scoreTypeItems.Add(new SelectListItem { Text = "1", Value = "1" });
+            scoreTypeItems.Add(new SelectListItem { Text = "2", Value = "2" });
+            scoreTypeItems.Add(new SelectListItem { Text = "3", Value = "3" });
+            scoreTypeItems.Add(new SelectListItem { Text = "4", Value = "4" });
+            scoreTypeItems.Add(new SelectListItem { Text = "5", Value = "5" });
+            ViewBag.ScoreType = scoreTypeItems;
+
             return View();
         }
     }

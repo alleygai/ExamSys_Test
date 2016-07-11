@@ -39,6 +39,7 @@
     <Property Name="EmployeeTypeID" Type="int" Nullable="false" />
     <Property Name="SubjectTypeID" Type="int" Nullable="false" />
     <Property Name="IsDelete" Type="bit" Nullable="false" />
+    <Property Name="Score" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="SubjectType">
     <Key>
@@ -113,6 +114,7 @@
           <Property Name="IsDelete" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="EmployeeType" Relationship="ExamSysModel.FK_Questions_EmployeeType" FromRole="Questions" ToRole="EmployeeType" />
           <NavigationProperty Name="SubjectType" Relationship="ExamSysModel.FK_Questions_SubjectType" FromRole="Questions" ToRole="SubjectType" />
+          <Property Name="Score" Type="Int32" />
         </EntityType>
         <EntityType Name="SubjectType">
           <Key>
@@ -174,6 +176,7 @@
           <ScalarProperty Name="EmployeeTypeID" ColumnName="EmployeeTypeID" />
           <ScalarProperty Name="SubjectTypeID" ColumnName="SubjectTypeID" />
           <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

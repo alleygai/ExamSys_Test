@@ -23,6 +23,7 @@ namespace ExamSys.Data
         public int EmployeeTypeID { get; set; }
         public int SubjectTypeID { get; set; }
         public bool IsDelete { get; set; }
+        public Nullable<int> Score { get; set; }
     
         public virtual EmployeeType EmployeeType { get; set; }
         public virtual SubjectType SubjectType { get; set; }

@@ -17,6 +17,7 @@ namespace ExamSys.Controllers
             var answer = Request.Form["answer"].ToString();
             var subjectType = Convert.ToInt32(Request.Form["subjectType"].ToString());
             var employeeType = Convert.ToInt32(Request.Form["employeeType"].ToString());
+            var scoreType = Convert.ToInt32(Request.Form["scoreType"].ToString());
 
             Questions q = new Questions();
             q.ID = Guid.NewGuid();
@@ -28,11 +29,10 @@ namespace ExamSys.Controllers
             q.IsDelete = false;
             q.CreateTime = DateTime.Now;
             q.LastUpdateTime = DateTime.Now;
-
+            q.Score = scoreType;
 
             using (ExamSysEntities entity = new ExamSysEntities())
             {
-
                 entity.Questions.Add(q);
                 entity.SaveChanges();
             }
@@ -55,7 +55,7 @@ namespace ExamSys.Controllers
             var questions = totalResult.OrderBy(re => re.ID).Skip(pagesize * pagenum).Take(pagesize);
             var result = new
             {
-                TotalRows = questions,
+                TotalRows = totalCount,
                 Rows = questions
             };
             return Json(result, JsonRequestBehavior.AllowGet);
