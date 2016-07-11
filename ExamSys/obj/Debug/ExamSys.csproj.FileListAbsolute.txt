@@ -106,6 +106,7 @@ C:\Work\Code\ExamSys\ExamSys_Test\ExamSys\bin\Antlr3.Runtime.pdb
 C:\Work\Code\ExamSys\ExamSys_Test\ExamSys\bin\Newtonsoft.Json.xml
 C:\Work\Code\ExamSys\ExamSys_Test\ExamSys\obj\Debug\ExamSys.dll
 C:\Work\Code\ExamSys\ExamSys_Test\ExamSys\obj\Debug\ExamSys.pdb
+<<<<<<< HEAD
 C:\Users\Alley\Documents\GitHub\ExamSys_Test\ExamSys\bin\ApplicationInsights.config
 C:\Users\Alley\Documents\GitHub\ExamSys_Test\ExamSys\bin\roslyn\csc.exe
 C:\Users\Alley\Documents\GitHub\ExamSys_Test\ExamSys\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -163,3 +164,7 @@ C:\Users\Alley\Documents\GitHub\ExamSys_Test\ExamSys\obj\Debug\ExamSys.pdb
 C:\Users\Alley\Documents\GitHub\ExamSys_Test\ExamSys\obj\Debug\ExamSys.csprojResolveAssemblyReference.cache
 C:\Users\Alley\Documents\GitHub\ExamSys_Test\ExamSys\bin\EntityFramework.SqlServer.dll
 C:\Users\Alley\Documents\GitHub\ExamSys_Test\ExamSys\bin\EntityFramework.SqlServer.xml
+=======
+C:\Work\Code\ExamSys\ExamSys_Test\ExamSys\obj\Debug\ExamSys.csprojResolveAssemblyReference.cache
+C:\Work\Code\ExamSys\ExamSys_Test\ExamSys\bin\DocX.dll
+>>>>>>> origin/master
