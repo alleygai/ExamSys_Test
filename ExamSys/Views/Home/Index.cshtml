@@ -45,8 +45,8 @@
         </div>
         <div id="Exam">
             <div class="row">
-                @Html.DropDownList("employeeType", (IList<SelectListItem>)ViewBag.EmployeeType)
-                @Html.DropDownList("subjectType", (IList<SelectListItem>)ViewBag.SubjectType)
+                @Html.DropDownList("employeeTypeT3", (IList<SelectListItem>)ViewBag.EmployeeType)
+                @Html.DropDownList("subjectTypeT3", (IList<SelectListItem>)ViewBag.SubjectType)
                 <button type="button" class="btn btn-sm" onclick="GeneratePaper();">生成</button>
             </div>
         </div>
@@ -91,14 +91,15 @@
     }
 
     function GeneratePaper() {
-        if ($("#subjectType").val() == "0") {
+        if ($("#subjectTypeT3").val() == "0") {
             alert("请选择题目类型");
             return;
         }
-        if ($("#employeeType").val() == "0") {
+        if ($("#employeeTypeT3").val() == "0") {
             alert("请选择工种类型");
             return;
         }
+        window.location = "/Word/Download?subjectType=" + $("#subjectTypeT3").val() + "&employeeType=" + $("#employeeTypeT3").val();
     }
 
     function SubmitSubject() {
