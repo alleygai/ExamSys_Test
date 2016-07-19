@@ -19,27 +19,29 @@ namespace ExamSys.Controllers
             var employeeType = Convert.ToInt32(Request.Form["employeeType"].ToString());
             var scoreType = Convert.ToInt32(Request.Form["scoreType"].ToString());
 
-            Questions q = new Questions();
-            q.ID = Guid.NewGuid();
-            q.Title = title;
-            q.Content = content;
-            q.Answer = answer;
-            q.SubjectTypeID = subjectType;
-            q.EmployeeTypeID = employeeType;
-            q.IsDelete = false;
-            q.CreateTime = DateTime.Now;
-            q.LastUpdateTime = DateTime.Now;
-            q.Score = scoreType;
-
             using (ExamSysEntities entity = new ExamSysEntities())
             {
+                Questions q = new Questions();
+                q.ID = Guid.NewGuid();
+                q.Title = title;
+                q.Content = content;
+                q.Answer = answer;
+                q.SubjectTypeID = subjectType;
+                q.EmployeeTypeID = employeeType;
+                q.IsDelete = false;
+                q.CreateTime = DateTime.Now;
+                q.LastUpdateTime = DateTime.Now;
+                q.Score = scoreType;
+
                 entity.Questions.Add(q);
                 entity.SaveChanges();
             }
         }
 
-        public JsonResult GetQuestions(int pagesize, int pagenum, int subjecttypeid, int employeetypeid)
+        public JsonResult GetQuestions(int subjecttypeid, int employeetypeid)
         {
+            int pagesize = Convert.ToInt32(Request.QueryString["pagesize"]);
+            int pagenum = Convert.ToInt32(Request.QueryString["pagenum"]);
             ExamSysEntities entity = new ExamSysEntities();
             var totalResult = from item in entity.Questions
                               where item.SubjectTypeID == subjecttypeid &&
@@ -52,7 +54,7 @@ namespace ExamSys.Controllers
                                   Title = item.Title
                               };
             var totalCount = totalResult.Count();
-            var questions = totalResult.OrderBy(re => re.ID).Skip(pagesize * pagenum).Take(pagesize);
+            var questions = totalResult.OrderBy(re => re.ID).Skip(pagesize * pagenum).Take(pagesize).ToList();
             var result = new
             {
                 TotalRows = totalCount,
