@@ -56,20 +56,17 @@
 
     function GetQuestions() {
         var source = {
+            type: "GET",
             datatype: "json",
             datafields: [{ name: 'ID', },
                         { name: 'Title' },
                         { name: 'Content' },
                         { name: 'Answer' }],
-            url: 'Questions/GetQuestions',
+            url: '/Questions/GetQuestions',
             id: 'ID',
             data: {
                 subjecttypeid: $("#subjectTypeT2").val(),
                 employeetypeid: $("#employeeTypeT2").val()
-            },
-            beforeprocessing: function (data) {
-                debugger;
-                source.totalrecords = data.TotalRows;
             }
         };
         var dataAdapter = new $.jqx.dataAdapter((source), {
@@ -77,6 +74,15 @@
                 alert(error);
             }
         });
+
+        var cellsrenderer = function (row, columnfield, value, defaulthtml, columnproperties) {
+            if (value < 20) {
+                return '<span style="margin: 4px; float: ' + columnproperties.cellsalign + '; color: #0000ff;">' + value + '</span>';
+            }
+            else {
+                return '<span style="margin: 4px; float: ' + columnproperties.cellsalign + '; color: #008000;">' + value + '</span>';
+            }
+        }
 
         $("#QuestionsGrid").jqxGrid(
                 {
@@ -86,11 +92,43 @@
                     pageSize: 15,
                     sortable: false,
                     filterable: false,
+                    editable: true,
+                    selectionmode: 'singlecell',
                     columns: [
-                      { text: '编号', datafield: 'ID' },
                       { text: '题目', datafield: 'Title' },
                       { text: '试题内容', datafield: 'Content' },
-                      { text: '答案', datafield: 'Answer' }
+                      {
+                          text: '答案',
+                          datafield: 'Answer',
+                          columntype: 'textbox',
+                          initeditor: function (row, cellvalue, editor) {
+                              //editor.jqxTextBox();
+                          },
+                          validation: function (cell, value) {
+                              //submit to server
+                              var updateData = {
+
+                              };
+                              $.ajax({
+                                  url: '/Questions/UpdateQ',
+                                  type: 'POST',
+                                  data: updateData,
+                                  async: false,
+                                  success: function (result) {
+                                      if (result == "N") {
+                                          return {
+                                              message: "更新失败，请重试!",
+                                              result: false
+                                          };
+                                      }
+                                      else {
+                                          return true;
+                                      }
+                                  }
+                              });
+                          },
+                      },
+                      { text: '操作', datafield: 'ID', cellsrenderer: cellsrenderer }
                     ]
                 });
 
@@ -103,7 +141,7 @@
         localizationobj.pagerpreviousbuttonstring = "后一页";
 
         $("#QuestionsGrid").on('bindingcomplete', function (event) {
-            $("#QuestionsGrid").jqxGrid('hidecolumn', 'ID');
+            //$("#QuestionsGrid").jqxGrid('hidecolumn', 'ID');
             $("#QuestionsGrid").jqxGrid('localizestrings', localizationobj);
         });
     }

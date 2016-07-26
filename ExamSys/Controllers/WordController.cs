@@ -68,6 +68,7 @@ namespace ExamSys.Controllers
                 {
                     doc.InsertParagraph(q.Title);
                     doc.InsertParagraph(q.Content);
+                    doc.InsertParagraph();
                 }
 
                 #endregion
@@ -88,7 +89,7 @@ namespace ExamSys.Controllers
                 List<Questions> judgeItems = new List<Questions>();
                 while (judgeItems.Count < 20)
                 {
-                    var temp = all1.ElementAt(new Random().Next(all2.Count));
+                    var temp = all2.ElementAt(new Random().Next(all2.Count));
                     if (judgeItems.FirstOrDefault(i => i.ID == temp.ID) == null)
                     {
                         judgeItems.Add(new Questions
@@ -104,6 +105,7 @@ namespace ExamSys.Controllers
                 {
                     doc.InsertParagraph(q.Title);
                     doc.InsertParagraph(q.Content);
+                    doc.InsertParagraph();
                 }
                 #endregion
 
@@ -123,7 +125,7 @@ namespace ExamSys.Controllers
                 List<Questions> blankItems = new List<Questions>();
                 while (blankItems.Count < 10)
                 {
-                    var temp = all1.ElementAt(new Random().Next(all3.Count));
+                    var temp = all3.ElementAt(new Random().Next(all3.Count));
                     if (blankItems.FirstOrDefault(i => i.ID == temp.ID) == null)
                     {
                         blankItems.Add(new Questions
@@ -139,6 +141,7 @@ namespace ExamSys.Controllers
                 {
                     doc.InsertParagraph(q.Title);
                     doc.InsertParagraph(q.Content);
+                    doc.InsertParagraph();
                 }
 
                 #endregion
@@ -159,7 +162,7 @@ namespace ExamSys.Controllers
                 List<Questions> computeItems = new List<Questions>();
                 while (computeItems.Count < 5)
                 {
-                    var temp = all1.ElementAt(new Random().Next(all4.Count));
+                    var temp = all4.ElementAt(new Random().Next(all4.Count));
                     if (computeItems.FirstOrDefault(i => i.ID == temp.ID) == null)
                     {
                         computeItems.Add(new Questions
@@ -175,6 +178,11 @@ namespace ExamSys.Controllers
                 {
                     doc.InsertParagraph(q.Title);
                     doc.InsertParagraph(q.Content);
+                    doc.InsertParagraph();
+                    doc.InsertParagraph();
+                    doc.InsertParagraph();
+                    doc.InsertParagraph();
+                    doc.InsertParagraph();
                 }
 
                 #endregion
@@ -195,7 +203,7 @@ namespace ExamSys.Controllers
                 List<Questions> answerItems = new List<Questions>();
                 while (answerItems.Count < 5)
                 {
-                    var temp = all1.ElementAt(new Random().Next(all4.Count));
+                    var temp = all5.ElementAt(new Random().Next(all4.Count));
                     if (answerItems.FirstOrDefault(i => i.ID == temp.ID) == null)
                     {
                         answerItems.Add(new Questions
@@ -211,6 +219,11 @@ namespace ExamSys.Controllers
                 {
                     doc.InsertParagraph(q.Title);
                     doc.InsertParagraph(q.Content);
+                    doc.InsertParagraph();
+                    doc.InsertParagraph();
+                    doc.InsertParagraph();
+                    doc.InsertParagraph();
+                    doc.InsertParagraph();
                 }
 
                 #endregion

@@ -38,6 +38,34 @@ namespace ExamSys.Controllers
             }
         }
 
+        [HttpPost]
+        public string UpdateQ()
+        {
+            try
+            {
+                var ID = new Guid(Request.Form["ID"].ToString());
+                var title = Request.Form["title"].ToString();
+                var content = Request.Form["content"].ToString();
+                var answer = Request.Form["answer"].ToString();
+
+                using (ExamSysEntities entity = new ExamSysEntities())
+                {
+                    var question = entity.Questions.FirstOrDefault(q => q.ID == ID);
+                    if (question != null)
+                    {
+                        entity.SaveChanges();
+                        return "Y";
+                    }
+                    else
+                        return "N";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "N";
+            }
+        }
+
         public JsonResult GetQuestions(int subjecttypeid, int employeetypeid)
         {
             int pagesize = Convert.ToInt32(Request.QueryString["pagesize"]);
@@ -54,7 +82,8 @@ namespace ExamSys.Controllers
                                   Title = item.Title
                               };
             var totalCount = totalResult.Count();
-            var questions = totalResult.OrderBy(re => re.ID).Skip(pagesize * pagenum).Take(pagesize).ToList();
+            var questions = totalResult.ToList();
+            //var questions = totalResult.OrderBy(re => re.ID).Skip(pagesize * pagenum).Take(pagesize).ToList();
             var result = new
             {
                 TotalRows = totalCount,
@@ -62,5 +91,7 @@ namespace ExamSys.Controllers
             };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+
     }
 }
